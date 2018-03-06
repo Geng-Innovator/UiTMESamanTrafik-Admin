@@ -10,7 +10,6 @@
         #laporan_status {
             padding: 10px;
             color: #000000;
-            background-color: {!! $laporan['laporan_status_warna'] !!};
         }
 
         .btn {
@@ -27,6 +26,8 @@
             </div>
         </div>
 
+        <br/><br/>
+
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10">
@@ -40,7 +41,18 @@
                             <div class="col-md-6">
                                 <h5><b>Status Laporan:</b></h5>
 
-                                <div class="img-rounded" id="laporan_status">
+                                <!-- warna status laporan -->
+                                @if($laporan['laporan_status'] == 'DILAPORKAN')
+                                    <div class="img-rounded" id="laporan_status" style="background-color: #00FF00">
+                                @elseif($laporan['laporan_status'] == 'DIJADUALKAN')
+                                    <div class="img-rounded" id="laporan_status" style="background-color: #FFFF00">
+                                @elseif($laporan['laporan_status'] == 'DIKUATKUASAKAN')
+                                    <div class="img-rounded" id="laporan_status" style="background-color: #FF0000">
+                                @elseif($laporan['laporan_status'] == 'DITUTUP')
+                                    <div class="img-rounded" id="laporan_status" style="background-color: #D2D2D2">
+                                @else
+                                    <div class="img-rounded" id="laporan_status" style="background-color: #00FF00">
+                                @endif
                                     <b>{!! $laporan['laporan_status'] !!}</b>
                                 </div>
                             </div>
@@ -93,48 +105,62 @@
                                 <h5><b>No. Siri Pelekat:</b> {!! $laporan['kenderaan_no_siri_pelekat'] !!}</h5>
                             </div>
                         </div>
+
+                        <!-- laporan staf -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><b>Laporan Staf:</b></h5>
+                                @if(isset($laporan['staf_laporan']))
+                                    <p>{!! $laporan['staf_laporan'] !!}</p>
+                                @else
+                                    <p>Tiada laporan daripada staf.</p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <h5><b>Laporan Staf:</b></h5>
-                        @if(isset($laporan['staf_laporan']))
-                            <p>{!! $laporan['staf_laporan'] !!}</p>
+                <br /><br />
+
+                <!-- laporan polis -->
+                <div class="row" id="laporan-polis">
+                    <div class="col-md-3">
+                        @if($laporan['polis_imej'] != null)
+                            <img class="img-rounded" src="{!! asset('/images/' . $laporan['polis_imej']) !!}" />
                         @else
-                            <p>Tiada laporan daripada staf.</p>
+                            <h3><b>Tiada Gambar</b></h3>
                         @endif
                     </div>
                     <div class="col-md-1"></div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <h5><b>Kesalahan:</b></h5>
-                        @if(isset($laporan['kesalahanList']))
-                            <ul>
-                                @foreach($laporan['kesalahanList'] as $kesalahan)
-                                    <li>{!! $kesalahan['jenis_kesalahan'] !!}</li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <p>Tiada kesalahan.</p>
-                        @endif
-                    </div>
-                    <div class="col-md-1"></div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <h5><b>Laporan Polis:</b></h5>
-                        @if(isset($laporan['polis_laporan']))
-                            <p>{!! $laporan['polis_laporan'] !!}</p>
-                        @else
-                            <p>Tiada laporan daripada polis.</p>
-                        @endif
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="md-col-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><b>Laporan Polis:</b></h5>
+                                        @if(isset($laporan['polis_laporan']))
+                                            <p>{!! $laporan['polis_laporan'] !!}</p>
+                                        @else
+                                            <p>Tiada laporan daripada polis.</p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5><b>Kesalahan:</b></h5>
+                                        @if(isset($laporan['kesalahanList']))
+                                            <ul>
+                                                @foreach($laporan['kesalahanList'] as $kesalahan)
+                                                    <li>{!! $kesalahan['jenis_kesalahan'] !!}</li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <p>Tiada kesalahan.</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -216,4 +242,13 @@
 
         </div>
     </div>
+@endsection
+
+@section('custom-script')
+    <script>
+        var laporanPolis = "{!! $laporan['polis_laporan'] !!}";
+        
+        if(laporanPolis == null)
+            $("#laporan-polis").css("display", "none");
+    </script>
 @endsection

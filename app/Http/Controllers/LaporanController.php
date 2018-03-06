@@ -144,23 +144,6 @@ class LaporanController extends Controller
 
 	        // laporan status info
 	        $laporanStatusInfo = LookupStatusLaporan::all()->find($laporanInfo['status_laporan']);
-	        switch($laporanStatusInfo['nama']) {
-		        case 'DILAPORKAN':
-		        	$laporanStatusWarna = '#00FF00';
-		        	break;
-		        case 'DIJADUALKAN':
-			        $laporanStatusWarna = '#FFFF00';
-		        	break;
-		        case 'DIKUATKUASAKAN':
-			        $laporanStatusWarna = '#FF0000';
-					break;
-				case 'DITUTUP':
-					$laporanStatusWarna = '#D2D2D2';
-					break;
-		        default:
-			        $laporanStatusWarna = '#00FF00';
-			        break;
-	        }
 
 	        // jadualkan laporan polis info list
 	        $polisInfoList = Pekerja::all()->where('jenis_pekerja', 'LIKE', 3);
@@ -188,7 +171,6 @@ class LaporanController extends Controller
 		        'laporan_tarikh' => date_format($laporanInfo['created_at'], 'Y-m-d'),
 		        'laporan_masa' => date_format($laporanInfo['created_at'], 'H-i-s'),
 		        'laporan_status' => $laporanStatusInfo['nama'],
-		        'laporan_status_warna' => $laporanStatusWarna,
 
 		        // staf
 		        'staf_id' => $laporanInfo['staf_id'],
