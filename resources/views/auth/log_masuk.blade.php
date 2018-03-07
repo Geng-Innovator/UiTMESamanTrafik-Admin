@@ -1,21 +1,77 @@
 @extends('layouts.layout')
 
+@section('custom-style')
+    <style>
+        body {
+            background-color: #8C3391;
+        }
+        h1 {
+            color: #E89C66;
+        }
+
+        input {
+            color: black !important;
+            background: transparent;
+        }
+
+        .input-text {
+            padding: 5px;
+            border-radius: 30px;
+            background: white;
+            opacity: 0.7;
+        }
+
+        .btn-submit {
+            padding: 5px;
+            border-radius: 30px;
+            background: white;
+            opacity: 0.9;
+            border: none;
+
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #FFFF00;
+        }
+
+        .checkbox, .btn-link {
+            color: white;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Login</div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-4">
+                        <h1><b>Log Masuk</b></h1>
+                    </div>
+                </div>
 
-                    <div class="panel-body">
+                <br /><br />
+                
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
                         <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('no_pekerja') ? ' has-error' : '' }}">
-                                <label for="no_pekerja" class="col-md-4 control-label">No. Pekerja</label>
+                            <div class="input-text form-group{{ $errors->has('no_pekerja') ? ' has-error' : '' }}">
+                                <label for="no_pekerja" class="col-md-2 control-label">
+                                    <img src="" />
+                                </label>
 
-                                <div class="col-md-6">
-                                    <input id="no_pekerja" type="text" class="form-control" name="no_pekerja" value="{{ old('no_pekerja') }}" required autofocus>
+                                <div class="col-md-10">
+                                    <b>
+                                        <input id="no_pekerja"
+                                            type="text"
+                                            class="form-control"
+                                            name="no_pekerja"
+                                            value="{{ old('no_pekerja') }}"
+                                            placeholder="No. Pekerja"
+                                            required autofocus>
+                                    </b>
 
                                     @if ($errors->has('no_pekerja'))
                                         <span class="help-block">
@@ -25,11 +81,20 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Katalaluan</label>
+                            <div class="input-text form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-2 control-label">
+                                    <img src="" />
+                                </label>
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
+                                <div class="col-md-10">
+                                    <b>
+                                        <input id="password"
+                                            type="password"
+                                            class="form-control"
+                                            name="password"
+                                            placeholder="Password"
+                                            required>
+                                    </b>
 
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -39,26 +104,31 @@
                                 </div>
                             </div>
 
+                            <br /><br />
+
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                        </label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="hidden" name="jenis_pekerja" value="1" />
+                                        <button type="submit" class="btn-submit">
+                                            <b>Log Masuk</b>
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <input type="hidden" name="jenis_pekerja" value="1" />
-                                    <button type="submit" class="btn btn-primary">
-                                        Login
-                                    </button>
-
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        Forgot Your Password?
-                                    </a>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            Forgot Your Password?
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </form>
