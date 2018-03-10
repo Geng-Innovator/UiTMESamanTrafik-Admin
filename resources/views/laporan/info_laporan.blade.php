@@ -2,18 +2,54 @@
 
 @section('custom-style')
     <style>
+        body {
+            color: #FFFF00;
+            background-color: #8C3391;
+        }
+        a {
+            color: #FFFF00;
+        }
         img {
-            max-height: 200px;
-            max-width: 200px;
+            margin: 0 auto 1em 0;
+            height: auto !important;
+            width: 280px !important;
         }
 
         #laporan_status {
             padding: 10px;
             color: #000000;
         }
+        #penerangan-staf {
+            padding: 10px;
+
+            border-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 10px;
+        }
+        #penerangan-polis {
+            padding: 10px;
+
+            border-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 10px;
+        }
+        #jadualkanLaporan {
+            color: black;
+        }
+        #jadualkanLaporan .btn-primary {
+            color: white;
+        }
+        #btn-kembali {
+            background-color: yellow;
+        }
 
         .btn {
             margin: 5px;
+            color: black;
+            font-weight: bold;
+            background-color: white;
         }
     </style>
 @endsection
@@ -29,8 +65,7 @@
         <br/><br/>
 
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-3">
                         <img class="img-rounded" src="{!! asset('/images/' . $laporan['staf_imej']) !!}" />
@@ -70,7 +105,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><b>Nama Staf:</b> <a href="{!! route('admin.info.staf', ['id' => $laporan['staf_id']]) !!}">{!! $laporan['staf_nama'] !!}</a></h5>
+                                <h5><b>Nama Staf:</b> <u><a href="{!! route('admin.info.staf', ['id' => $laporan['staf_id']]) !!}">{!! $laporan['staf_nama'] !!}</a></u></h5>
                             </div>
                             <div class="col-md-6">
                                 <h5><b>Masa:</b> {!! $laporan['laporan_masa'] !!}</h5>
@@ -78,7 +113,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><b>Nama Polis:</b> <a href="{!! route('admin.info.polis', ['id' => $laporan['polis_id']]) !!}">{!! $laporan['polis_nama'] !!}</a></h5>
+                                <h5><b>Nama Polis:</b> <u><a href="{!! route('admin.info.polis', ['id' => $laporan['polis_id']]) !!}">{!! $laporan['polis_nama'] !!}</a></u></h5>
                             </div>
                         </div>
 
@@ -94,7 +129,7 @@
                                 <h5><b>Jenis Kenderaan:</b> {!! $laporan['kenderaan_jenis'] !!}</h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>No. Pelajar:</b> <a href="{!! route('admin.info.pelajar', ['id' => $laporan['pelajar_id']]) !!}">{!! $laporan['pelajar_no'] !!}</a></h5>
+                                <h5><b>No. Pelajar:</b> <u><a href="{!! route('admin.info.pelajar', ['id' => $laporan['pelajar_id']]) !!}">{!! $laporan['pelajar_no'] !!}</a></u></h5>
                             </div>
                         </div>
                         <div class="row">
@@ -110,17 +145,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h5><b>Laporan Staf:</b></h5>
-                                @if(isset($laporan['staf_laporan']))
-                                    <p>{!! $laporan['staf_laporan'] !!}</p>
-                                @else
-                                    <p>Tiada laporan daripada staf.</p>
-                                @endif
+                                <div id="penerangan-staf">
+                                    @if(isset($laporan['staf_laporan']))
+                                        <p>{!! $laporan['staf_laporan'] !!}</p>
+                                    @else
+                                        <p>Tiada laporan daripada staf.</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <br /><br />
+                
+                <hr />
 
                 <!-- laporan polis -->
                 <div class="row" id="laporan-polis">
@@ -131,18 +168,19 @@
                             <h3><b>Tiada Gambar</b></h3>
                         @endif
                     </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-7">
+                    <div class="col-md-7 col-md-offset-1">
                         <div class="row">
                             <div class="md-col-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h5><b>Laporan Polis:</b></h5>
-                                        @if(isset($laporan['polis_laporan']))
-                                            <p>{!! $laporan['polis_laporan'] !!}</p>
-                                        @else
-                                            <p>Tiada laporan daripada polis.</p>
-                                        @endif
+                                        <div id="penerangan-polis">
+                                            @if(isset($laporan['polis_laporan']))
+                                                <p>{!! $laporan['polis_laporan'] !!}</p>
+                                            @else
+                                                <p>Tiada laporan daripada polis.</p>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -162,28 +200,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1"></div>
                 </div>
 
                 <br />
 
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-md-offset-2">
                         @if($laporan['laporan_status'] == "DILAPORKAN")
-                            <a class="btn btn-info btn-block" href="#" data-toggle="modal" data-target="#jadualkanLaporan">JADUALKAN LAPORAN</a>
+                            <a class="btn btn-block" href="#" data-toggle="modal" data-target="#jadualkanLaporan">JADUALKAN LAPORAN</a>
                         @elseif($laporan['laporan_status'] == "DIKUATKUASAKAN")
                             <form action="{!! route('admin.laporan.tutup') !!}" method="post">
                                 <input type="hidden" name="laporan_id" value="{!! $laporan['laporan_id'] !!}" />
-                                <input type="submit" class="btn btn-info btn-block" value="TUTUP KES" />
+                                <input type="submit" class="btn btn-block" value="TUTUP KES" />
                             </form>
                         @endif
-                        <a class="btn btn-danger btn-block" href="{!! route('admin.dashboard') !!}">KEMBALI</a>
+                        <a class="btn btn-block" id="btn-kembali" href="{!! route('admin.dashboard') !!}">KEMBALI</a>
                     </div>
-                    <div class="col-md-2"></div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 

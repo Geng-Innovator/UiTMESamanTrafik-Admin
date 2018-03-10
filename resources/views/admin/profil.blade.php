@@ -1,29 +1,85 @@
 @extends('layouts.layout')
 
+@section('custom-style')
+    <style>
+        body {
+            background-color: #8C3391;    
+        }
+        h1, h3, h4, h5 {
+            color: #FFFF00;
+        }
+
+        a.btn {
+            margin: 10px;
+            display: block;
+            text-decoration: none;
+
+            opacity: .8;
+            color: black;
+            font-weight: bold;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .container {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-info {
+            text-align: center;
+        }
+
+        #btn-kembali {
+            background-color: yellow;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
+                    <div class="col-md-4 col-md-offset-4">
                         @if(empty($infoAdmin))
-                            <h1>Tiada rekod berkenaan admin</h1>
+                            <h1 class="main-info">Tiada rekod berkenaan admin</h1>
                         @else
-                            <h5>No. Pekerja: {!! $infoAdmin['no_pekerja'] !!}</h5>
-                            <h3>{!! $infoAdmin['admin_nama'] !!}</h3>
-                            <h4>Emel: {!! $infoAdmin['admin_emel'] !!}</h4>
-                            <h4>No. IC: {!! $infoAdmin['admin_ic'] !!}</h4>
-                            <h4>No. Tel. H/P: {!! $infoAdmin['admin_no_tel_hp'] !!}</h4>
-                            <h4>No. Tel. Pejabat: {!! $infoAdmin['admin_no_tel_pej'] !!}</h4>
-                            <h4>Jawatan: {!! $infoAdmin['admin_jawatan_gred'] !!} - {!! $infoAdmin['admin_jawatan_nama'] !!}</h4>
-                            <h4>Tarikh Daftar: {!! $infoAdmin['admin_tarikh_daftar'] !!}</h4>
+                            <span class="main-info">
+                                <h5><b>No. Pekerja:</b> {!! $infoAdmin['no_pekerja'] !!}</h5>
+                                <h3>{!! $infoAdmin['admin_nama'] !!}</h3>
+                            </span>
+                            <h4>
+                                <b>Emel:</b><br />
+                                {!! $infoAdmin['admin_emel'] !!}
+                            </h4>
+                            <h4>
+                                <b>No. IC:</b><br />
+                                {!! $infoAdmin['admin_ic'] !!}
+                            </h4>
+                            <h4>
+                                <b>No. Tel. H/P:</b><br />
+                                {!! $infoAdmin['admin_no_tel_hp'] !!}
+                            </h4>
+                            <h4>
+                                <b>No. Tel. Pejabat:</b><br />
+                                {!! $infoAdmin['admin_no_tel_pej'] !!}
+                            </h4>
+                            <h4>
+                                <b>Jawatan:</b><br />
+                                {!! $infoAdmin['admin_jawatan_gred'] !!} - {!! $infoAdmin['admin_jawatan_nama'] !!}
+                            </h4>
+                            <h4>
+                                <b>Tarikh Daftar:</b><br />
+                                {!! $infoAdmin['admin_tarikh_daftar'] !!}
+                            </h4>
 
-                            <a class="btn btn-default" href="{!! URL::previous() !!}">Kembali</a>
-                            <a id="reset" class="btn btn-primary" href="#">Ubah Katalaluan</a>
+                            <br /><br />
+
+                            <a class="btn" id="btn-reset" href="#">Ubah Katalaluan</a>
+                            <a class="btn" id="btn-kembali" href="{!! URL::previous() !!}">Kembali</a>
                         @endif
                     </div>
-                    <div class="col-md-1"></div>
                 </div>
             </div>
         </div>

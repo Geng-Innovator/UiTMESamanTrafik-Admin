@@ -2,13 +2,42 @@
 
 @section('custom-style')
     <style>
+        body {
+            background-color: #8C3391;    
+        }
+        h1 {
+            color: #FFFF00;
+        }
         td {
             text-align: center;
+        }
+        table {
+            border-radius: 10px;
+        }
+        thead {
+            background-color: #FFFF00;
+        }
+        tbody {
+            background-color: white;
+        }
+        img {
+            margin: 0 auto 1em auto;
+            height: 100px !important;
+            width: auto !important;
         }
 
         #status-laporan {
             padding: 10px;
             border-radius: 10px;
+        }
+
+        div.dashboard-table {
+            opacity: .8;
+            padding: 10px;
+
+            border-radius: 10px;
+
+            background-color: white;
         }
     </style>
 @endsection
@@ -18,14 +47,13 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <h1><b>Dashboard</b></h1>
+                <h1><b>Senarai Laporan</b></h1>
             </div>
             <div class="col-md-4"></div>
         </div>
 
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
+        <div class="row dashboard-table">
+            <div class="col-md-10 col-md-offset-1">
                 <table class="table">
                     <thead>
                         <tr>
@@ -41,7 +69,9 @@
                     <tbody>
                         @if(empty($laporanList))
                             <tr>
-                                <td colspan="7">Tiada laporan lagi.</td>
+                                <td colspan="7">
+                                    <h3><b>Tiada laporan lagi.</b></h3>
+                                </td>
                             </tr>
                         @else
                             @foreach($laporanList as $laporan)
@@ -77,7 +107,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-1"></div>
         </div>
     </div>
 

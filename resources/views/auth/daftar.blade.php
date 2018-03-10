@@ -6,7 +6,7 @@
             background-color: #8C3391;
         }
         h1, label {
-            color: #E89C66;
+            color: #FFFF00;
         }
 
         input {

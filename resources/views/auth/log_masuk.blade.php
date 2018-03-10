@@ -6,10 +6,11 @@
             background-color: #8C3391;
         }
         h1 {
-            color: #E89C66;
+            color: #FFFF00;
         }
 
         input {
+            margin: 20px 0 20px 0;
             color: black !important;
             background: transparent;
         }
@@ -37,6 +38,12 @@
         .checkbox, .btn-link {
             color: white;
         }
+        .icon {
+            margin: 0;
+            padding: 0;
+            height: auto !important;
+            width: 50px !important;
+        }
     </style>
 @endsection
 
@@ -59,7 +66,7 @@
 
                             <div class="input-text form-group{{ $errors->has('no_pekerja') ? ' has-error' : '' }}">
                                 <label for="no_pekerja" class="col-md-2 control-label">
-                                    <img src="" />
+                                    <img class="icon" src="{!! asset('/images/icons/icon_email.png') !!}" />
                                 </label>
 
                                 <div class="col-md-10">
@@ -83,7 +90,7 @@
 
                             <div class="input-text form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password" class="col-md-2 control-label">
-                                    <img src="" />
+                                    <img class="icon" src="{!! asset('/images/icons/icon_password.png') !!}" />
                                 </label>
 
                                 <div class="col-md-10">
@@ -113,21 +120,6 @@
                                         <button type="submit" class="btn-submit">
                                             <b>Log Masuk</b>
                                         </button>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            Forgot Your Password?
-                                        </a>
                                     </div>
                                 </div>
                             </div>
