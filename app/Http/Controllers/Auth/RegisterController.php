@@ -214,7 +214,8 @@ class RegisterController extends Controller
 		}
 
 		// hantar emel daftar
-		Mail::to($request['emel'])->send(new DaftarMail($request['nama'], $request['emel'], $password, $request['no_pekerja']));
+		Mail::to($request['emel'])
+			->send(new DaftarMail($request['nama'], $request['emel'], $password, $request['no_pekerja']));
 
 		return view('admin.dashboard')->with([
 			'daftar' => 1

@@ -124,7 +124,7 @@ class StafController extends Controller
     	// process
 	    // image process
 	    // define file path
-	    $destination = base_path() . '\\public\\images\\';
+	    $destination = base_path() . '\\public\\images\\uploads\\';
 	    $fileName = $stafId . '_' . time() . '.png';
 
 	    // insert process
@@ -210,7 +210,7 @@ class StafController extends Controller
 
     		$laporanList[] = [
     			'id' => $laporan['id'],
-			    'laporan_imej' => base64_encode(file_get_contents(asset('/images/' . $laporan['imej_staf']))),
+			    'laporan_imej' => base64_encode(file_get_contents(asset('/images/uploads/' . $laporan['imej_staf']))),
     			'laporan_tempat' => $laporan['tempat'],
 			    'laporan_tarikh' => $laporan['created_at']->format('d-m-Y'),
 			    'laporan_masa' => $laporan['created_at']->format('H:i:s'),
@@ -250,12 +250,12 @@ class StafController extends Controller
     		foreach($kesalahanAll as $kesalahan) {
     			$namaKesalahan = LookupJenisKesalahan::all()->find($kesalahan['jenis_kesalahan']);
     			$kesalahanList[] = $namaKesalahan['nama'];
-		    }
-
+			}
+			
 		    if($laporan['imej_staf'] != null)
-		    	$stafImejPath = asset('/images/' . $laporan['imej_staf']);
+		    	$stafImejPath = asset('/images/uploads/' . $laporan['imej_staf']);
     		if($laporan['imej_polis'] != null)
-    			$polisImejPath = asset('/images/' . $laporan['imej_polis']);
+    			$polisImejPath = asset('/images/uploads/' . $laporan['imej_polis']);
 
     		return response()->json([
     			'status' => 1,

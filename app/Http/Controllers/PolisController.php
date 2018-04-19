@@ -120,7 +120,7 @@ class PolisController extends Controller
 			$statusLaporanId = $statLaporan['id'];
 
 		// define file path
-		$destination = base_path() . '\\public\\images\\';
+		$destination = base_path() . '\\public\\images\\uploads\\';
 		$fileName = $laporanId . '_' . $polisId . '_' . time() . '.png';
 
 		// update database
@@ -174,8 +174,8 @@ class PolisController extends Controller
 		$returnPolis = Polis::all()->find($returnLaporan['polis_id']);
 		$returnStafPekerja = Pekerja::all()->find($returnStaf['pekerja_id']);
 		$returnPekerjaPolis = Pekerja::all()->find($returnPolis['pekerja_id']);
-		$returnStafPath = asset('/images/' . $returnLaporan['imej_staf']);
-		$returnPolisPath = asset('/images/' . $returnLaporan['imej_polis']);
+		$returnStafPath = asset('/images/uploads/' . $returnLaporan['imej_staf']);
+		$returnPolisPath = asset('/images/uploads/' . $returnLaporan['imej_polis']);
 		$returnKenderaan = Kenderaan::all()->find($returnLaporan['kenderaan']);
 		$returnjenisKenderaan = LookupJenisKenderaan::all()->find($returnKenderaan['jenis_kenderaan']);
 		$returnStatusKenderaan = LookupStatusKenderaan::all()->find($returnKenderaan['status_kenderaan']);
@@ -189,9 +189,9 @@ class PolisController extends Controller
 		}
 
 		if($returnLaporan['imej_staf'] != null)
-			$returnStafPath = asset('/images/' . $returnLaporan['imej_staf']);
+			$returnStafPath = asset('/images/uploads/' . $returnLaporan['imej_staf']);
 		if($returnLaporan['imej_polis'] != null)
-			$returnPolisPath = asset('/images/' . $returnLaporan['imej_polis']);
+			$returnPolisPath = asset('/images/uploads/' . $returnLaporan['imej_polis']);
 
 		return response()->json([
 			'status' => 1,
@@ -247,7 +247,7 @@ class PolisController extends Controller
 
 			$laporanList[] = [
 				'id' => $laporan['id'],
-				'laporan_imej' => base64_encode(file_get_contents(asset('/images/' . $laporan['imej_staf']))),
+				'laporan_imej' => base64_encode(file_get_contents(base_path() . '\\public\\images\\uploads\\' . $laporan['imej_staf'])),
 				'laporan_tempat' => $laporan['tempat'],
 				'laporan_tarikh' => $laporan['created_at']->format('d-m-Y'),
 				'laporan_masa' => $laporan['created_at']->format('H:i:s'),

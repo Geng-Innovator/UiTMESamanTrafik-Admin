@@ -54,7 +54,7 @@ class LaporanController extends Controller
     public function store(Request $request)
     {
     	// image process
-	    $destination = base_path() . '/public/images/';
+	    $destination = base_path() . '/public/images/uploads/';
 
 	    if(isset($request['imej_staf'])) {
 		    $imageStafPath = $request->file('imej_staf')->getClientOriginalName();

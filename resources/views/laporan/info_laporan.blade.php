@@ -68,7 +68,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-3">
-                        <img class="img-rounded" src="{!! asset('/images/' . $laporan['staf_imej']) !!}" />
+                        <img class="img-rounded" src="{!! asset('/images/uploads/' . $laporan['staf_imej']) !!}" />
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-md-8">
@@ -156,14 +156,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <hr />
 
                 <!-- laporan polis -->
                 <div class="row" id="laporan-polis">
                     <div class="col-md-3">
                         @if($laporan['polis_imej'] != null)
-                            <img class="img-rounded" src="{!! asset('/images/' . $laporan['polis_imej']) !!}" />
+                            <img class="img-rounded" src="{!! asset('/images/uploads/' . $laporan['polis_imej']) !!}" />
                         @else
                             <h3><b>Tiada Gambar</b></h3>
                         @endif

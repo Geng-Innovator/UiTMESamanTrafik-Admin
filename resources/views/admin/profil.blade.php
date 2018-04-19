@@ -30,6 +30,10 @@
             text-align: center;
         }
 
+        .modal-title {
+            color: black !important;
+        }
+
         #btn-kembali {
             background-color: yellow;
         }
@@ -147,7 +151,7 @@
             if(resetPassword == 1)
                 $("#messageModal").modal();
 
-            $("#reset").click(function() {
+            $("#btn-reset").click(function() {
                 $("#messageModal").modal();
             });
         });
