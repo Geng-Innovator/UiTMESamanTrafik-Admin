@@ -83,12 +83,12 @@ class LaporanController extends Controller
 		    'polis_id' => $request['polis_id'],
 		    'pelajar_id' => $request['pelajar_id'],
 		    'status_laporan' => $request['status_laporan'],
-		    'tempat' => $request['tempat'],
+		    'tempat' => strtoupper($request['tempat']),
 		    'imej_staf' => $imageStafPath,
 		    'imej_polis' => $imagePolisPath,
-		    'laporan_staf' => $request['laporan_staf'],
-		    'laporan_polis' => $request['laporan_polis'],
-		    'no_siri_pelekat' => $request['no_siri_pelekat'],
+		    'laporan_staf' => strtoupper($request['laporan_staf']),
+		    'laporan_polis' => strtoupper($request['laporan_polis']),
+		    'no_siri_pelekat' => strtoupper($request['no_siri_pelekat']),
 		    'kenderaan' => $newKenderaan->id
 	    ]);
     	$laporan->save();
@@ -124,9 +124,10 @@ class LaporanController extends Controller
 	        // kenderaan info
 	        $kenderaanInfo = Kenderaan::all()->find($laporanInfo['kenderaan']);
 	        $jenisKenderaanInfo = LookupJenisKenderaan::all()->find($kenderaanInfo['jenis_kenderaan']);
-	        $statusKenderaanInfo = LookupStatusKenderaan::all()->find($kenderaanInfo['status_kenderaan']);
+			$statusKenderaanInfo = LookupStatusKenderaan::all()->find($kenderaanInfo['status_kenderaan']);
+			
 	        $kenderaanInfo = [
-		        'kenderaan_no' => $kenderaanInfo['id'],
+		        'kenderaan_no' => $kenderaanInfo['no_kenderaan'],
 		        'kenderaan_jenis' => $jenisKenderaanInfo['nama'],
 		        'kenderaan_status' => $statusKenderaanInfo['nama']
 	        ];
@@ -167,28 +168,28 @@ class LaporanController extends Controller
 	        $laporan = [
 	        	// laporan
 		        'laporan_id' => $laporanInfo['id'],
-		        'laporan_tempat' => $laporanInfo['tempat'],
+		        'laporan_tempat' => strtoupper($laporanInfo['tempat']),
 		        'laporan_tarikh' => date_format($laporanInfo['created_at'], 'Y-m-d'),
 		        'laporan_masa' => date_format($laporanInfo['created_at'], 'H-i-s'),
 		        'laporan_status' => $laporanStatusInfo['nama'],
 
 		        // staf
 		        'staf_id' => $laporanInfo['staf_id'],
-		        'staf_nama' => $stafPekerjaInfo['nama'],
+		        'staf_nama' => strtoupper($stafPekerjaInfo['nama']),
 		        'staf_imej' => $laporanInfo['imej_staf'],
-		        'staf_laporan' => $laporanInfo['laporan_staf'],
+		        'staf_laporan' => strtoupper($laporanInfo['laporan_staf']),
 
 		        // polis
 		        'polis_id' => $laporanInfo['polis_id'],
-		        'polis_nama' => $polisPekerjaInfo['nama'],
+		        'polis_nama' => strtoupper($polisPekerjaInfo['nama']),
 		        'polis_imej' => $laporanInfo['imej_polis'],
-		        'polis_laporan' => $laporanInfo['laporan_polis'],
+		        'polis_laporan' => strtoupper($laporanInfo['laporan_polis']),
 
 		        // kenderaan
 		        'kenderaan_no' => $kenderaanInfo['kenderaan_no'],
 		        'kenderaan_jenis' => $kenderaanInfo['kenderaan_jenis'],
 		        'kenderaan_status' => $kenderaanInfo['kenderaan_status'],
-		        'kenderaan_no_siri_pelekat' => $laporanInfo['no_siri_pelekat'],
+		        'kenderaan_no_siri_pelekat' => strtoupper($laporanInfo['no_siri_pelekat']),
 
 		        // pelajar
 		        'pelajar_id' => $pelajarInfo['id'],
@@ -237,11 +238,11 @@ class LaporanController extends Controller
 		    'pelajar_id' => $request['pelajar_id'],
 		    'status_laporan' => $request['status_laporan'],
 		    'tarikh_masa' => $request['tarikh_masa'],
-		    'tempat' => $request['tempat'],
+		    'tempat' => strtoupper($request['tempat']),
 		    'imej_staf' => $request['imej_staf'],
 		    'imej_polis' => $request['imej_polis'],
-		    'laporan_staf' => $request['laporan_staf'],
-		    'laporan_polis' => $request['laporan_polis'],
+		    'laporan_staf' => strtoupper($request['laporan_staf']),
+		    'laporan_polis' => strtoupper($request['laporan_polis']),
 		    'no_siri_pelekat' => $request['no_siri_pelekat'],
 		    'kenderaan' => $request['kenderaan']
         ]);

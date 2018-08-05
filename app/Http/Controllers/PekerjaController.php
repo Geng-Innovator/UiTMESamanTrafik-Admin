@@ -144,8 +144,8 @@ class PekerjaController extends Controller
 
         $tempPekerja->no_pekerja = $request['no_pekerja'];
         $tempPekerja->no_ic = $request['no_ic'];
-        $tempPekerja->nama = $request['nama'];
-        $tempPekerja->emel = $request['emel'];
+        $tempPekerja->nama = strtoupper($request['nama']);
+        $tempPekerja->emel = strtoupper($request['emel']);
         $tempPekerja->password = $request['password'];
         $tempPekerja->no_tel_hp = $request['no_tel_hp'];
         $tempPekerja->no_tel_pej = $request['no_tel_pej'];

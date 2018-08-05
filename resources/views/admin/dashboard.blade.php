@@ -79,7 +79,7 @@
                                     <td>{{ $laporan['id'] }}</td>
                                     <td>
                                         <a href="{!! route('admin.laporan', ['id' => $laporan['id']]) !!}">
-                                            <img class="img-rounded img-responsive" src="{!! asset('/images/uploads/' . $laporan['imej']) !!}" />
+                                            <img class="img-rounded img-responsive" src="{!! $laporan['imej'] !!}" />
                                         </a>
                                     </td>
                                     <td>{{ $laporan['tempat'] }}</td>

@@ -52,8 +52,10 @@ Route::group(['prefix' => 'polis'], function() {
 	Route::post('dashboard', 'PolisController@showDashboard');
 	Route::post('profil', 'PolisController@showProfil');
 	Route::post('laporan/info', 'PolisController@showLaporan');
+	Route::post('laporan/hantar-laporan', 'PolisController@hantarLaporan');
 	Route::post('laporan/maklum-balas', 'PolisController@maklumBalas');
 
 	Route::get('form/laporan/maklum-balas', 'PolisController@showMaklumBalas');
+	Route::get('form/laporan/hantar-laporan', 'PolisController@showHantarLaporan');
 });
 

@@ -120,7 +120,7 @@ class PolisController extends Controller
 			$statusLaporanId = $statLaporan['id'];
 
 		// define file path
-		$destination = base_path() . '\\public\\images\\uploads\\';
+	    $destination = public_path() . '/images/uploads/';
 		$fileName = $laporanId . '_' . $polisId . '_' . time() . '.png';
 
 		// update database
@@ -129,7 +129,7 @@ class PolisController extends Controller
 			// register pelajar
 			$pelajar = Pelajar::create([
 				'no_pelajar' => $noPelajar,
-				'nama' => $namaPelajar,
+				'nama' => strtoupper($namaPelajar),
 				'kursus' => $kursusPelajar,
 				'kolej' => $kolejPelajar,
 				'fakulti' => $fakultiPelajar
@@ -142,7 +142,7 @@ class PolisController extends Controller
 		$laporan->fill([
 			'pelajar_id' => $pelajarId,
 			'status_laporan' => $statusLaporanId,
-			'imej_polis'=> $fileName,
+			'imej_polis'=> asset('images/uploads') . '/' . $fileName,
 			'laporan_polis' => $peneranganPolis
 		]);
 		$laporan->save();
@@ -189,9 +189,9 @@ class PolisController extends Controller
 		}
 
 		if($returnLaporan['imej_staf'] != null)
-			$returnStafPath = asset('/images/uploads/' . $returnLaporan['imej_staf']);
+			$returnStafPath = $returnLaporan['imej_staf'];
 		if($returnLaporan['imej_polis'] != null)
-			$returnPolisPath = asset('/images/uploads/' . $returnLaporan['imej_polis']);
+			$returnPolisPath = $returnLaporan['imej_polis'];
 
 		return response()->json([
 			'status' => 1,
@@ -201,23 +201,23 @@ class PolisController extends Controller
 				'laporan_status' => $returnLaporan['status_laporan'],
 				'laporan_tarikh' => $returnLaporan['created_at']->format('d-m-Y'),
 				'laporan_masa' => $returnLaporan['created_at']->format('H:i:s'),
-				'laporan_tempat' => $returnLaporan['tempat'],
-				'laporan_staf' => $returnLaporan['laporan_staf'],
-				'laporan_polis' => $returnLaporan['laporan_polis'],
+				'laporan_tempat' => strtoupper($returnLaporan['tempat']),
+				'laporan_staf' => strtoupper($returnLaporan['laporan_staf']),
+				'laporan_polis' => strtoupper($returnLaporan['laporan_polis']),
 
 				// staf
 				'staf_id' => $returnStaf['id'],
-				'staf_nama' => $returnStafPekerja['nama'],
+				'staf_nama' => strtoupper($returnStafPekerja['nama']),
 				'staf_imej' => $returnStafPath,
 
 				// polis
 				'polis_id' => $returnPolis['id'],
-				'polis_nama' => $returnPekerjaPolis['nama'],
+				'polis_nama' => strtoupper($returnPekerjaPolis['nama']),
 				'polis_imej' => $returnPolisPath,
 
 				// kenderaan
-				'kenderaan_no' => $returnKenderaan['no_kenderaan'],
-				'no_siri_pelekat' => $returnLaporan['no_siri_pelekat'],
+				'kenderaan_no' => strtoupper($returnKenderaan['no_kenderaan']),
+				'no_siri_pelekat' => strtoupper($returnLaporan['no_siri_pelekat']),
 				'kenderaan_jenis' => $returnjenisKenderaan['nama'],
 				'kenderaan_status' => $returnStatusKenderaan['nama'],
 
@@ -226,6 +226,43 @@ class PolisController extends Controller
 			]
 		]);
 	}
+
+	// hantar laporan
+	public function showHantarLaporan() {
+		$jenisKenderaanList = LookupJenisKenderaan::all();
+		$jenisKesalahanList = LookupJenisKesalahan::all();
+		$jenisKursusList = LookupKursus::all();
+		$jenisKolejList = LookupKolej::all();
+		$jenisFakultiList = LookupFakulti::all();
+
+    	return response()->json([
+    		'status' => 1,
+		    'data' => [
+				'jenisKenderaanList' => $jenisKenderaanList,
+				'jenisKesalahanList' => $jenisKesalahanList,
+				'jenisKursusList' => $jenisKursusList,
+				'jenisKolejList' => $jenisKolejList,
+				'jenisFakultiList' => $jenisFakultiList
+		    ]
+	    ]);
+	}
+	public function hantarLaporan(Request $request) {
+		// TODO - ubah bagi polis boleh terus buat laporan tanpa admin perlu acknowledge
+		/*
+		variables:
+		-	polis id
+		-	tempat
+		-	tarikh
+		-	masa
+		-	no kenderaan
+		-	jenis kenderaan
+		-	no pelajar
+		-	status kenderaan
+		-	no siri pelekat
+		-	laporan polis
+		-	kesalahan
+		*/
+    }
 
 	public function showDashboard(Request $request) {
 		// get request input
@@ -247,8 +284,8 @@ class PolisController extends Controller
 
 			$laporanList[] = [
 				'id' => $laporan['id'],
-				'laporan_imej' => base64_encode(file_get_contents(base_path() . '\\public\\images\\uploads\\' . $laporan['imej_staf'])),
-				'laporan_tempat' => $laporan['tempat'],
+				'laporan_imej' => $laporan['imej_staf'],
+				'laporan_tempat' => strtoupper($laporan['tempat']),
 				'laporan_tarikh' => $laporan['created_at']->format('d-m-Y'),
 				'laporan_masa' => $laporan['created_at']->format('H:i:s'),
 				'laporan_status' => $statusLaporan['nama']
@@ -282,16 +319,16 @@ class PolisController extends Controller
 			return response()->json([
 				'status' => 1,
 				'data' => [
-					'no_pekerja' => $pekerja['no_pekerja'],
+					'no_pekerja' => strtoupper($pekerja['no_pekerja']),
 					'no_ic' => $pekerja['no_ic'],
 					'no_tel_hp' => $pekerja['no_tel_hp'],
 					'no_tel_pej' => $pekerja['no_tel_pej'],
-					'nama' => $pekerja['nama'],
-					'emel' => $pekerja['emel'],
-					'jenis_pekerja' => $jenisPekerja['nama'],
-					'jawatan_nama' => $jawatan['nama'],
-					'jawatan_gred' => $jawatan['gred'],
-					'pos' => $pos['nama']
+					'nama' => strtoupper($pekerja['nama']),
+					'emel' => strtoupper($pekerja['emel']),
+					'jenis_pekerja' => strtoupper($jenisPekerja['nama']),
+					'jawatan_nama' => strtoupper($jawatan['nama']),
+					'jawatan_gred' => strtoupper($jawatan['gred']),
+					'pos' => strtoupper($pos['nama'])
 				]
 			]);
 		}
@@ -327,9 +364,9 @@ class PolisController extends Controller
 			}
 
 			if($laporan['imej_staf'] != null)
-				$stafImejPath = asset('/images/' . $laporan['imej_staf']);
+				$stafImejPath = $laporan['imej_staf'];
 			if($laporan['imej_polis'] != null)
-				$polisImejPath = asset('/images/' . $laporan['imej_polis']);
+				$polisImejPath = $laporan['imej_polis'];
 
 			return response()->json([
 				'status' => 1,
@@ -339,23 +376,23 @@ class PolisController extends Controller
 					'laporan_status' => $statusLaporan['nama'],
 					'laporan_tarikh' => $laporan['created_at']->format('d-m-Y'),
 					'laporan_masa' => $laporan['created_at']->format('H:i:s'),
-					'laporan_tempat' => $laporan['tempat'],
+					'laporan_tempat' => strtoupper($laporan['tempat']),
 
 					// staf
 					'staf_id' => $laporan['staf_id'],
 					'staf_imej' => $stafImejPath,
-					'staf_penerangan' => $laporan['laporan_staf'],
+					'staf_penerangan' => strtoupper($laporan['laporan_staf']),
 
 					// polis
 					'polis_id' => $laporan['polis_id'],
 					'polis_imej' => $polisImejPath,
-					'polis_penerangan' => $laporan['laporan_polis'],
+					'polis_penerangan' => strtoupper($laporan['laporan_polis']),
 
 					// kenderaan
-					'kenderaan_no' => $kenderaan['no_kenderaan'],
+					'kenderaan_no' => strtoupper($kenderaan['no_kenderaan']),
 					'kenderaan_jenis' => $jenisKenderaan['nama'],
 					'kenderaan_status' => $statusKenderaan['nama'],
-					'no_siri_pelekat' => $laporan['no_siri_pelekat'],
+					'no_siri_pelekat' => strtoupper($laporan['no_siri_pelekat']),
 
 					// kesalahan
 					'kesalahan_list' => $kesalahanList

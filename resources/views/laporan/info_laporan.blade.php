@@ -51,6 +51,9 @@
             font-weight: bold;
             background-color: white;
         }
+        .data {
+            color: white;
+        }
     </style>
 @endsection
 
@@ -68,7 +71,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
                     <div class="col-md-3">
-                        <img class="img-rounded" src="{!! asset('/images/uploads/' . $laporan['staf_imej']) !!}" />
+                        <img class="img-rounded" src="{!! $laporan['staf_imej'] !!}" />
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-md-8">
@@ -92,28 +95,28 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>ID Laporan:</b> {!! $laporan['laporan_id'] !!}</h5>
+                                <h5><b>ID Laporan:</b> <span class="data">{!! $laporan['laporan_id'] !!}</span></h5>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><b>Tempat:</b> {!! $laporan['laporan_tempat'] !!}</h5>
+                                <h5><b>Tempat:</b> <span class="data">{!! $laporan['laporan_tempat'] !!}</span></h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>Tarikh:</b> {!! $laporan['laporan_tarikh'] !!}</h5>
+                                <h5><b>Tarikh:</b> <span class="data">{!! $laporan['laporan_tarikh'] !!}</span></h5>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><b>Nama Staf:</b> <u><a href="{!! route('admin.info.staf', ['id' => $laporan['staf_id']]) !!}">{!! $laporan['staf_nama'] !!}</a></u></h5>
+                                <h5><b>Nama Staf:</b> <a href="{!! route('admin.info.staf', ['id' => $laporan['staf_id']]) !!}"><span class="data"><u>{!! $laporan['staf_nama'] !!}</u></span></a></h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>Masa:</b> {!! $laporan['laporan_masa'] !!}</h5>
+                                <h5><b>Masa:</b> <span class="data">{!! $laporan['laporan_masa'] !!}</span></h5>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><b>Nama Polis:</b> <u><a href="{!! route('admin.info.polis', ['id' => $laporan['polis_id']]) !!}">{!! $laporan['polis_nama'] !!}</a></u></h5>
+                                <h5><b>Nama Polis:</b> <a href="{!! route('admin.info.polis', ['id' => $laporan['polis_id']]) !!}"><span class="data"><u>{!! $laporan['polis_nama'] !!}</u></span></a></h5>
                             </div>
                         </div>
 
@@ -121,23 +124,23 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <h5><b>No. Kenderaan:</b> {!! $laporan['kenderaan_no'] !!}</h5>
+                                <h5><b>No. Kenderaan:</b> <span class="data">{!! $laporan['kenderaan_no'] !!}</span></h5>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><b>Jenis Kenderaan:</b> {!! $laporan['kenderaan_jenis'] !!}</h5>
+                                <h5><b>Jenis Kenderaan:</b> <span class="data">{!! $laporan['kenderaan_jenis'] !!}</span></h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>No. Pelajar:</b> <u><a href="{!! route('admin.info.pelajar', ['id' => $laporan['pelajar_id']]) !!}">{!! $laporan['pelajar_no'] !!}</a></u></h5>
+                                <h5><b>No. Pelajar:</b> <span class="data"><u><a href="{!! route('admin.info.pelajar', ['id' => $laporan['pelajar_id']]) !!}">{!! $laporan['pelajar_no'] !!}</a></u></span></h5>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5><b>Status Kenderaan:</b> {!! $laporan['kenderaan_status'] !!}</h5>
+                                <h5><b>Status Kenderaan:</b> <span class="data">{!! $laporan['kenderaan_status'] !!}</span></h5>
                             </div>
                             <div class="col-md-6">
-                                <h5><b>No. Siri Pelekat:</b> {!! $laporan['kenderaan_no_siri_pelekat'] !!}</h5>
+                                <h5><b>No. Siri Pelekat:</b> <span class="data">{!! $laporan['kenderaan_no_siri_pelekat'] !!}</span></h5>
                             </div>
                         </div>
 
@@ -147,9 +150,9 @@
                                 <h5><b>Laporan Staf:</b></h5>
                                 <div id="penerangan-staf">
                                     @if(isset($laporan['staf_laporan']))
-                                        <p>{!! $laporan['staf_laporan'] !!}</p>
+                                        <p><span class="data">{!! $laporan['staf_laporan'] !!}</span></p>
                                     @else
-                                        <p>Tiada laporan daripada staf.</p>
+                                        <p><span class="data">Tiada laporan daripada staf.</span></p>
                                     @endif
                                 </div>
                             </div>
@@ -163,7 +166,7 @@
                 <div class="row" id="laporan-polis">
                     <div class="col-md-3">
                         @if($laporan['polis_imej'] != null)
-                            <img class="img-rounded" src="{!! asset('/images/uploads/' . $laporan['polis_imej']) !!}" />
+                            <img class="img-rounded" src="{!! $laporan['polis_imej'] !!}" />
                         @else
                             <h3><b>Tiada Gambar</b></h3>
                         @endif
@@ -176,9 +179,9 @@
                                         <h5><b>Laporan Polis:</b></h5>
                                         <div id="penerangan-polis">
                                             @if(isset($laporan['polis_laporan']))
-                                                <p>{!! $laporan['polis_laporan'] !!}</p>
+                                                <p><span class="data">{!! $laporan['polis_laporan'] !!}</span></p>
                                             @else
-                                                <p>Tiada laporan daripada polis.</p>
+                                                <p><span class="data">Tiada laporan daripada polis.</span></p>
                                             @endif
                                         </div>
                                     </div>
@@ -189,11 +192,11 @@
                                         @if(isset($laporan['kesalahanList']))
                                             <ul>
                                                 @foreach($laporan['kesalahanList'] as $kesalahan)
-                                                    <li>{!! $kesalahan['jenis_kesalahan'] !!}</li>
+                                                    <li><span class="data">{!! $kesalahan['jenis_kesalahan'] !!}</span></li>
                                                 @endforeach
                                             </ul>
                                         @else
-                                            <p>Tiada kesalahan.</p>
+                                            <p><span class="data">Tiada kesalahan.</span></p>
                                         @endif
                                     </div>
                                 </div>

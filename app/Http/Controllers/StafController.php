@@ -124,13 +124,13 @@ class StafController extends Controller
     	// process
 	    // image process
 	    // define file path
-	    $destination = base_path() . '\\public\\images\\uploads\\';
+	    $destination = public_path() . '/images/uploads/';
 	    $fileName = $stafId . '_' . time() . '.png';
 
 	    // insert process
 	    $newKenderaan = new Kenderaan();
 	    $newKenderaan->fill([
-		    'no_kenderaan' => $noKenderaan,
+		    'no_kenderaan' => strtoupper($noKenderaan),
 		    'jenis_kenderaan' => $jenisKenderaanId,
 		    'status_kenderaan' => $statusKenderaanId
 	    ]);
@@ -143,18 +143,18 @@ class StafController extends Controller
 		    'polis_id' => null,
 		    'pelajar_id' => null,
 		    'status_laporan' => $statusLaporanId,
-		    'tempat' => $tempat,
-		    'imej_staf' => $fileName,
+		    'tempat' => strtoupper($tempat),
+		    'imej_staf' => asset('images/uploads') . '/' . $fileName,
 		    'imej_polis' => null,
-		    'laporan_staf' => $laporanStaf,
+		    'laporan_staf' => strtoupper($laporanStaf),
 		    'laporan_polis' => null,
 		    'no_siri_pelekat' => $noSiriPelekat,
 		    'kenderaan' => $newKenderaan->id
 	    ]);
 	    $newLaporan->save();
 
-	    // insert file
-	    file_put_contents($destination . $fileName, base64_decode($imejStaf));
+		// insert file
+		file_put_contents($destination . $fileName, base64_decode($imejStaf));
 
 	    // register
     	return response()->json([
@@ -210,7 +210,7 @@ class StafController extends Controller
 
     		$laporanList[] = [
     			'id' => $laporan['id'],
-			    'laporan_imej' => base64_encode(file_get_contents(asset('/images/uploads/' . $laporan['imej_staf']))),
+			    'laporan_imej' => $laporan['imej_staf'],
     			'laporan_tempat' => $laporan['tempat'],
 			    'laporan_tarikh' => $laporan['created_at']->format('d-m-Y'),
 			    'laporan_masa' => $laporan['created_at']->format('H:i:s'),
@@ -253,9 +253,9 @@ class StafController extends Controller
 			}
 			
 		    if($laporan['imej_staf'] != null)
-		    	$stafImejPath = asset('/images/uploads/' . $laporan['imej_staf']);
+		    	$stafImejPath = $laporan['imej_staf'];
     		if($laporan['imej_polis'] != null)
-    			$polisImejPath = asset('/images/uploads/' . $laporan['imej_polis']);
+    			$polisImejPath = $laporan['imej_polis'];
 
     		return response()->json([
     			'status' => 1,

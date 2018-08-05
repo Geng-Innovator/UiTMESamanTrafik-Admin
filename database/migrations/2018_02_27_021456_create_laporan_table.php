@@ -15,7 +15,7 @@ class CreateLaporanTable extends Migration
     {
         Schema::create('laporan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('staf_id');
+            $table->string('staf_id')->nullable();
             $table->string('admin_id')->nullable();
             $table->string('polis_id')->nullable();
             $table->string('pelajar_id')->nullable();
