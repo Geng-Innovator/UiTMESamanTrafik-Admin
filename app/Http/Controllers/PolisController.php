@@ -247,21 +247,92 @@ class PolisController extends Controller
 	    ]);
 	}
 	public function hantarLaporan(Request $request) {
-		// TODO - ubah bagi polis boleh terus buat laporan tanpa admin perlu acknowledge
-		/*
-		variables:
-		-	polis id
-		-	tempat
-		-	tarikh
-		-	masa
-		-	no kenderaan
-		-	jenis kenderaan
-		-	no pelajar
-		-	status kenderaan
-		-	no siri pelekat
-		-	laporan polis
-		-	kesalahan
-		*/
+		$polisId = $request['polis_id'];
+		$polisImej = $request['polis_imej'];
+		$polisPenerangan = $request['polis_penerangan'];
+		$laporanTempat = $request['laporan_tempat'];
+		$kenderaanNo = $request['kenderaan_no'];
+		$kenderaanNoSiriPelekar = $request['kenderaan_no_siri_pelekat'];
+		$kenderaanJenisId = $request['kenderaan_jenis'];
+		$kenderaanStatusId = $request['kenderaan_status'];
+		$pelajarNo = $request['pelajar_no'];
+		$pelajarNama = $request['pelajar_nama'];
+		$pelajarKursus = $request['pelajar_kursus'];
+		$pelajarKolej = $request['pelajar_kolej'];
+		$pelajarFakulti = $request['pelajar_fakulti'];
+		$kesalahanList = json_decode($request['kesalahan_list']);
+
+		// insert process
+		// process kenderaan
+	    $newKenderaan = new Kenderaan();
+	    $newKenderaan->fill([
+		    'no_kenderaan' => strtoupper($kenderaanNo),
+		    'jenis_kenderaan' => $kenderaanJenisId,
+		    'status_kenderaan' => $kenderaanStatusId
+	    ]);
+	    $newKenderaan->save();
+
+		// process pelajar
+		$pelajarId = null;
+		if($pelajarNo != null) {
+			// register pelajar
+			$newPelajar = Pelajar::create([
+				'no_pelajar' => $pelajarNo,
+				'nama' => strtoupper($pelajarNama),
+				'kursus' => $pelajarKursus,
+				'kolej' => $pelajarKolej,
+				'fakulti' => $pelajarFakulti
+			]);
+			$pelajarId = $newPelajar->id;
+		}
+		
+		// process laporan
+		// get lookup value
+		$statusLaporanId = null;
+		$statusLaporan = LookupStatusLaporan::all()->where('nama', 'LIKE', 'DIKUATKUASAKAN');
+		foreach ($statusLaporan as $statLaporan)
+			$statusLaporanId = $statLaporan['id'];
+
+		// create laporan
+		$newLaporan = Laporan::create([
+			'polis_id' => $polisId,
+			'pelajar_id' => $pelajarId,
+			'status_laporan' => $statusLaporanId,
+			'tempat' => $laporanTempat,
+			'laporan_polis' => $polisPenerangan,
+			'kenderaan' => $newKenderaan->id
+		]);
+		$newLaporan->save();
+
+		// update laporan
+		$fileName = $newLaporan->id . '_' . $polisId . '_' . time() . '.png';
+		$newLaporan->fill([
+			'imej_polis'=> asset('images/uploads') . '/' . $fileName,
+		]);
+		$newLaporan->save();
+
+		// insert file
+	    $destination = public_path() . '/images/uploads/';
+		file_put_contents($destination . $fileName, base64_decode($polisImej));
+
+		// process kesalahan
+		foreach($kesalahanList as $kesalahanId) {
+			$newKesalahan = Kesalahan::create([
+				'laporan_id' => $newLaporan->id,
+				'jenis_kesalahan' => $kesalahanId
+			]);
+			$newKesalahan->save();
+		}
+
+		return response()->json([
+			'status' => 1,
+			'data' => [
+				'newKenderaan' => $newKenderaan,
+				'newPelajar' => $newPelajar,
+				'newLaporan' => $newLaporan,
+				'newKesalahan' => $newKesalahan
+			]
+		]);
     }
 
 	public function showDashboard(Request $request) {
