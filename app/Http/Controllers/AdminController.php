@@ -51,17 +51,29 @@ class AdminController extends Controller
 
 		        $noKenderaan = $kenderaan['no_kenderaan'];
 		        $jenisKenderaan = $lookupJenisKenderaan['nama'];
-		        $statusLaporan = $lookupStatusLaporan['nama'];
-
-		        $laporanList[] = [
-			        'id' => $laporan['id'],
-			        'imej' => $laporan['imej_staf'],
-			        'tempat' => $laporan['tempat'],
-			        'no_kenderaan' => $noKenderaan,
-			        'jenis_kenderaan' => $jenisKenderaan,
-			        'status_laporan' => $statusLaporan,
-			        'tarikh' => $laporan['created_at']
-		        ];
+				$statusLaporan = $lookupStatusLaporan['nama'];
+				
+				if($laporan['imej_staf'] != null) {
+					$laporanList[] = [
+						'id' => $laporan['id'],
+						'imej' => $laporan['imej_staf'],
+						'tempat' => $laporan['tempat'],
+						'no_kenderaan' => $noKenderaan,
+						'jenis_kenderaan' => $jenisKenderaan,
+						'status_laporan' => $statusLaporan,
+						'tarikh' => $laporan['created_at']
+					];
+				} else {
+					$laporanList[] = [
+						'id' => $laporan['id'],
+						'imej' => $laporan['imej_polis'],
+						'tempat' => $laporan['tempat'],
+						'no_kenderaan' => $noKenderaan,
+						'jenis_kenderaan' => $jenisKenderaan,
+						'status_laporan' => $statusLaporan,
+						'tarikh' => $laporan['created_at']
+					];
+				}
 			}
 			
 			return view('admin.dashboard')->with([
