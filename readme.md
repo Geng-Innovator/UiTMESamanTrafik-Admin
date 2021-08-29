@@ -6,7 +6,7 @@
 
 # Installation
 
-1. Duplicate `.env.example`file, rename it to `.env` & setup the necessary variables depending on your environment (`if you don't need other variables, just leave it as defualt value & don't remove them`):
+1. Duplicate `.env.example`file, rename it to `.env` & setup the necessary variables depending on your environment (`if you don't need other variables, just leave it as default value & don't remove them`):
    1. `DB_CONNECTION` -> SQL DB driver (set it as `mysql`)
    2. `DB_HOST` -> hosted DB URL (if you're hosting in your local environment, set it as `127.0.0.1`)
    3. `DB_PORT` -> hosted DB port (by default, it's `3306`)
@@ -24,9 +24,9 @@
 
 # About Default Data
 
-Upon running the seed migration command in [Installation (2)](#installation), a collection of default data will be created in the DB as specified below:
+Upon running the seed migration command in [Installation (3)](#installation), a collection of default data will be created in the DB as specified below:
 
-### `User Data`
+## User Data
 All default user account data will be seeded as shown below:
 
 1. Admin
@@ -39,5 +39,5 @@ All default user account data will be seeded as shown below:
    * username: `K3`
    * password: `3`
 
-### `Lookup Data`
+## Lookup Data
 Mostly these data are used as pointer in the DB & also to populate dropdown in the system. It is not as significant as `User Data`.
