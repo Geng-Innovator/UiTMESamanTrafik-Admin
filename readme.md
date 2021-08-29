@@ -1,51 +1,39 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# System Pre-requisite
+1. `MySQL v8` and above
+2. `PHP v7.3` and above
+3. `Composer v1.10.21` (keep it below v2)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Installation
+1. Duplicate `.env.example`file, rename it to `.env` & setup the necessary variables depending on your environment (`if you don't need other variables, just leave it as defualt value & don't remove them`):
+   1. `DB_CONNECTION` -> SQL DB driver (set it as `mysql`)
+   2. `DB_HOST` -> hosted DB URL (if you're hosting in your local environment, set it as `127.0.0.1`)
+   3. `DB_PORT` -> hosted DB port (by default, it's `3306`)
+   4. `DB_DATABASE` -> DB name
+   5. `DB_USERNAME` -> DB user (by default it's `root`)
+   6. `DB_PASSWORD` -> DB password
+2. Run `php artisan migrate` to do DB migration
+3. Run `php artisan db:seed` to seed default data to DB
 
-## About Laravel
+# Running Application
+1. Run `php -S localhost:8080 -t public/` to run application
+2. Open web browser & go to `http://localhost:8080` URL
+3. If you're able to see the website login page, this application has been successfully installed & running.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+# About Default Data
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Upon running the seed migration command in [Installation (2)](#installation), a collection of default data will be created in the DB as specified below:
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+### `User Data`
+All default user account data will be seeded as shown below:
+1. Admin
+   * username: `K1`
+   * password: `1`
+2. Polis
+   * username: `K2`
+   * password: `2`
+3. Staf
+   * username: `K3`
+   * password: `3`
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+### `Lookup Data`
+Mostly these data are used as pointer in the DB & also to populate dropdown in the system. It is not as significant as `User Data`.
