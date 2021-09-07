@@ -23,7 +23,7 @@
 3. If you're able to see the website login page, this application has been successfully installed & running.
 
 # Exposing Localhost as HTTPS service
-If you need to connect the Android app with your localhost, you need to expose it to a HTTP service by using an application celled [ngrok](https://ngrok.com/). You may check their documentation at their website.
+If you need to connect the Android app with your localhost, you need to expose it to a HTTP service by using an application called [ngrok](https://ngrok.com/). You may check their documentation at their website.
 
 Below are the steps on how you can expose your localhost for this application.
 
