@@ -22,6 +22,15 @@
 2. Open web browser & go to `http://localhost:8080` URL
 3. If you're able to see the website login page, this application has been successfully installed & running.
 
+# Exposing Localhost as HTTPS service
+If you need to connect the Android app with your localhost, you need to expose it to a HTTP service by using an application celled [ngrok](https://ngrok.com/). You may check their documentation at their website.
+
+Below are the steps on how you can expose your localhost for this application.
+
+1. Download ngrok [here](https://ngrok.com/download) & install it (refer to their documentation on how to install).
+2. Once installed, run `ngrok http 8080`.
+3. Once ngrok is running, you may browse this application using the URL that ngrok has generated.
+
 # About Default Data
 
 Upon running the seed migration command in [Installation (3)](#installation), a collection of default data will be created in the DB as specified below:
